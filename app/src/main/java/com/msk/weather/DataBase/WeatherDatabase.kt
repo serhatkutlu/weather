@@ -2,9 +2,8 @@ package com.msk.weather.DataBase
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverter
 import androidx.room.TypeConverters
-import com.msk.weather.Util.Converter
+import com.msk.weather.Converters.Converter
 import com.msk.weather.responce.LocalData.DB_Entity
 
 

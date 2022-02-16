@@ -1,17 +1,14 @@
 package com.msk.weather.Di
 
 import android.app.Application
-import android.content.Context
-import androidx.room.Database
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.google.gson.Gson
 import com.msk.weather.DataBase.WeatherDatabase
 import com.msk.weather.DataBase.dao
 import com.msk.weather.Repository
 import com.msk.weather.Util.Constants.BASE_URL
-import com.msk.weather.Util.Converter
-import com.msk.weather.Util.gsonParser
+import com.msk.weather.Converters.Converter
+import com.msk.weather.Converters.gsonParser
 import com.msk.weather.responce.api.weatherApi
 import dagger.Module
 import dagger.Provides

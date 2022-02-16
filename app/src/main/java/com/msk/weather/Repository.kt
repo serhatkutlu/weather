@@ -4,30 +4,36 @@ import com.msk.weather.DataBase.dao
 import com.msk.weather.Util.Resource
 import com.msk.weather.responce.LocalData.DB_Entity
 import com.msk.weather.responce.api.weatherApi
-import com.msk.weather.responce.data.weather
 import dagger.hilt.android.scopes.ActivityScoped
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import timber.log.Timber
 import java.lang.Exception
 
 @ActivityScoped
 class Repository (val api:weatherApi,val dao:dao) {
 
-         suspend fun getPokemonRepository():Resource<DB_Entity>{
+         suspend fun getCityRepository(city:String): Flow<Resource<DB_Entity>>{
 
-             val data=api.GetWeatherdata().toEntity()
+                return flow {
+                    emit(Resource.Loading())
+                    val database_Responce=dao.getCity(city)
 
-             dao.addCity(data)
-             //Timber.d(dao.getCity("London").toString())
-            val responce= try {
-                dao.getCity("London")
+                    emit(Resource.Loading(database_Responce))
 
-            }catch (e:Exception){
-                Timber.d(e.toString())
-                return Resource.Error("Error")
+                     try {
+                         val Api_Responce = api.GetWeatherdata().toEntity()
+                         dao.addCity(Api_Responce)
 
-            }
+                    } catch (e: Exception) {
+                        Timber.d(e.toString())
+                        emit(Resource.Error("data could not be updated"))
 
-            return Resource.Success(responce)
+                    }
+
+                    val data=dao.getCity(city)
+                    emit(Resource.Success(data))
+                }
         }
 
 }

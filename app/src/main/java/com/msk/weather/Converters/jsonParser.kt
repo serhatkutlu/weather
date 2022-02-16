@@ -1,4 +1,4 @@
-package com.msk.weather.Util
+package com.msk.weather.Converters
 
 import java.lang.reflect.Type
 

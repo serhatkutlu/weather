@@ -1,6 +1,5 @@
-package com.msk.weather.Util
+package com.msk.weather.Converters
 
-import android.animation.TimeAnimator
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import com.google.gson.reflect.TypeToken

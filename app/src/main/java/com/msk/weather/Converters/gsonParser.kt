@@ -1,11 +1,11 @@
-package com.msk.weather.Util
+package com.msk.weather.Converters
 
 import com.google.gson.Gson
 import java.lang.reflect.Type
 
 class gsonParser(
     private val gson: Gson
-):jsonParser{
+): jsonParser {
     override fun <T> fromJson(json: String, type: Type): T? {
         return gson.fromJson(json,type)
     }

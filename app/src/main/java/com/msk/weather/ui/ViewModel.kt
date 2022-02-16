@@ -1,13 +1,12 @@
 package com.msk.weather.ui
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.msk.weather.Repository
 import com.msk.weather.Util.Resource
 import com.msk.weather.responce.LocalData.DB_Entity
 import com.msk.weather.responce.data.weather
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -20,18 +19,22 @@ class ViewModel  @Inject constructor( val repository:Repository):ViewModel() {
     val weatherResponce:LiveData<DB_Entity> =_weatherResponce
 
 
-    fun GetWeatherInfo(){
+
+
+    fun GetWeatherInfo(City:String){
 
         viewModelScope.launch(){
-                val a=repository.getPokemonRepository()
-                when (a){
+                val a = repository.getCityRepository(City).onEach {
+                    when (it){
                     is Resource.Success->{
-                        a.data?.let {
-                            _weatherResponce.value=a.data!!
-                            Timber.d(a.data!!.days.get(1).info)
-                        }}
-                    is Resource.Error-> Timber.d("Error")
+                        _weatherResponce.value=it.data!!
+                        Timber.d(weatherResponce.toString())
+                    }
+                    is Resource.Error-> Timber.d(it.message)
+
                 }
+                }
+
         }
     }
 }
