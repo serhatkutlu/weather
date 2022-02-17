@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/primaryFragment">
+
+    <fragment
+        android:id="@+id/primaryFragment"
+        android:name="com.msk.weather.ui.primaryFragment"
+        android:label="fragment_primary"
+        tools:layout="@layout/fragment_primary" >
+        <action
+            android:id="@+id/action_primaryFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.msk.weather.ui.listFragment"
+        android:label="fragment_list"
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_listFragment_to_primaryFragment"
+            app:destination="@id/primaryFragment" />
+    </fragment>
+</navigation>

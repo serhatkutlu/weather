@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.listFragment"
+    android:orientation="vertical"
+    android:background="#197CE1">
+
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginHorizontal="10dp"
+        android:ellipsize="start"
+        android:gravity="center"
+        android:ems="10"
+        android:background="@drawable/back"
+        android:inputType="textPersonName"
+        android:hint="City name" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ListRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="40dp"
+        android:paddingHorizontal="20dp"/>
+</LinearLayout>
