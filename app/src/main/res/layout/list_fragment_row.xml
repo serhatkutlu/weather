@@ -17,6 +17,7 @@
     >
 
     <TextView
+        android:id="@+id/City_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Istanbul"
@@ -26,6 +27,7 @@
         />
 
     <TextView
+        android:id="@+id/temperature"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -37,6 +39,7 @@
 </LinearLayout>
 
     <TextView
+        android:id="@+id/info"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="hava bulutlu"

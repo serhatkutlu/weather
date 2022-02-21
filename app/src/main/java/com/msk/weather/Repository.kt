@@ -13,9 +13,8 @@ import java.lang.Exception
 @ActivityScoped
 class Repository (val api:weatherApi,val dao:dao) {
 
-         suspend fun getCityRepository(city:String): Flow<Resource<DB_Entity>>{
+          fun getCityRepository(city:String): Flow<Resource<DB_Entity>> =flow {
 
-                return flow {
                     emit(Resource.Loading())
                     val database_Responce=dao.getCity(city)
 
@@ -23,17 +22,34 @@ class Repository (val api:weatherApi,val dao:dao) {
 
                      try {
                          val Api_Responce = api.GetWeatherdata().toEntity()
+
                          dao.addCity(Api_Responce)
 
                     } catch (e: Exception) {
-                        Timber.d(e.toString())
+
                         emit(Resource.Error("data could not be updated"))
 
                     }
-
                     val data=dao.getCity(city)
                     emit(Resource.Success(data))
                 }
+    suspend fun getAllCityRepository():Flow<Resource<List<DB_Entity>>>{
+        return flow {
+            Timber.d("database is empty")
+            emit(Resource.Loading())
+
+            try {
+                val AllCitys=dao.getAllCity()
+                Timber.d(AllCitys[0].city)
+                emit(Resource.Success(AllCitys))
+            }catch (e:Exception){
+
+               emit(Resource.Error("database is empty"))
+            }
+
         }
+
+
+    }
 
 }
