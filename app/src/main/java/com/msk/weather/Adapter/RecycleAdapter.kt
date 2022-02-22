@@ -55,6 +55,10 @@ class RecycleAdapter :RecyclerView.Adapter<RecycleAdapter.Holder>() {
         return differ.currentList.size
     }
 
+    fun deleteItem(pos:Int):DB_Entity{
+        return differ.currentList.get(pos)
+
+    }
 
     private var onItemClickListener:((DB_Entity)->Unit)?=null
 

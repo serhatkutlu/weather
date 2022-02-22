@@ -9,7 +9,7 @@ import com.msk.weather.ui.listFragment
 @Dao
 interface dao {
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addCity(City:DB_Entity)
 
     @Query("Select * From weather_DB WHERE city In (:name)")

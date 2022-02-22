@@ -56,4 +56,11 @@ class Repository (val api:weatherApi,val dao:dao) {
         }
 
     }
+    suspend fun deleteCityInDatabase(dbEntity: DB_Entity){
+        try {
+            dao.delete(dbEntity)
+        }catch (e:Exception){
+            Timber.d(e)
+        }
+    }
 }

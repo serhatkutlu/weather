@@ -24,7 +24,11 @@ class ViewModel  @Inject constructor( val repository:Repository):ViewModel() {
     val allweatherResponce:LiveData<List<DB_Entity>> = _allweatherResponce
 
 
-
+    fun deleteCityInDatabase(dbEntity: DB_Entity){
+        viewModelScope.launch {
+            repository.deleteCityInDatabase(dbEntity)
+        }
+    }
     fun saveCityToDatabse(dbEntity: DB_Entity){
         viewModelScope.launch() {
             repository.saveCityToDatabase(dbEntity).onEach {
