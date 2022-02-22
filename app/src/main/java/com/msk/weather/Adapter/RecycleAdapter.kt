@@ -37,16 +37,32 @@ class RecycleAdapter :RecyclerView.Adapter<RecycleAdapter.Holder>() {
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val list=differ.currentList
+        val list=differ.currentList.get(position)
         holder.binding.apply {
-            CityName.text=list.get(position).city
-            temperature.text=list.get(position).currDay.temp_c.toString()
-            info.text=list.get(position).currDay.info
-
+            CityName.text=list.city
+            temperature.text=list.currDay.temp_c.toString()
+            info.text=list.currDay.info
+            holder.itemView.setOnClickListener {
+                    onItemClickListener?.let {
+                        it(list)
+                    }
+            }
         }
+
     }
 
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
+
+
+    private var onItemClickListener:((DB_Entity)->Unit)?=null
+
+
+    fun SetOnItemClickListener(listener:(DB_Entity)->Unit){
+       onItemClickListener=listener
+    }
+
+
+
 }

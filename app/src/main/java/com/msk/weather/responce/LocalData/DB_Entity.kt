@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "weather_DB")
 data class DB_Entity(
-    @PrimaryKey(autoGenerate = true)
     val  id:Int=0,
+    @PrimaryKey(autoGenerate = false)
     val city:String,
     val days:List<LocalDay>,
     @Embedded

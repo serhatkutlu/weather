@@ -10,7 +10,7 @@ interface weatherApi {
     @GET("forecast.json")
     suspend fun GetWeatherdata(
         @Query("key") key:String=API_KEY,
-        @Query("q") q:String="London",
+        @Query("q") q:String,
         @Query("days") days:String="7"
     ):weather
 }
