@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_primaryFragment_to_listFragment"
             app:destination="@id/listFragment" />
+        <argument
+            android:name="page"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/listFragment"

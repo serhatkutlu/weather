@@ -1,5 +1,6 @@
 package com.msk.weather.ui
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,11 +20,17 @@ import com.msk.weather.Adapter.SwipeToDelete
 import com.msk.weather.R
 import com.msk.weather.databinding.ActivityMainBinding
 import com.msk.weather.databinding.FragmentListBinding
+import com.msk.weather.responce.LocalData.LocalDay
 import kotlinx.coroutines.*
 import okhttp3.internal.wait
 import org.w3c.dom.Entity
 import timber.log.Timber
-import java.util.ArrayList
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.time.Duration.Companion.days
+import kotlin.time.days
 
 
 class listFragment : Fragment(R.layout.fragment_list) {
@@ -44,21 +52,26 @@ class listFragment : Fragment(R.layout.fragment_list) {
 
 
         RecycleAdapter.SetOnItemClickListener {
-            viewModel.saveCityToDatabse(it)
+            if (isSearching) viewModel.saveCityToDatabse(it)
+            val pos=RecycleAdapter.pos
+            val action=listFragmentDirections.actionListFragmentToPrimaryFragment(pos)
+            findNavController().navigate(action)
         }
 
         viewModel.getAllWeatherInfo()
         viewModel.allweatherResponce.observe(viewLifecycleOwner) {
-                RecycleAdapter.differ.submitList(it)
+
+            RecycleAdapter.differ.submitList(it)
         }
 
 
         binding.editTextTextPersonName.addTextChangedListener {
             if (it.toString().isNotEmpty())
-            {
+            {isSearching=true
                 searching(it.toString())
             }
             else{
+                isSearching=false
                 job?.let { it.cancel() }
                 viewModel.getAllWeatherInfo()
             }

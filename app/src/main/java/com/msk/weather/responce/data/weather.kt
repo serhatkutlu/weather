@@ -23,7 +23,7 @@ data class weather(
         }
         val currDay:LocalDay
         current.apply {
-            currDay=LocalDay( temp_c = this.tempC, icon_url = this.condition.icon, info =this.condition.text )
+            currDay=LocalDay( temp_c = this.tempC, icon_url = this.condition.icon, info =this.condition.text, date = current.isDay.toString())
         }
 
         return DB_Entity(city = location.name , currDay =currDay,days = days, )

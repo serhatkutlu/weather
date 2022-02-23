@@ -3,6 +3,7 @@ package com.msk.weather.Adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,7 @@ import com.msk.weather.databinding.FragmentListBinding
 import com.msk.weather.databinding.ListFragmentRowBinding
 import com.msk.weather.responce.LocalData.DB_Entity
 import com.msk.weather.ui.listFragment
+import timber.log.Timber
 
 class RecycleAdapter :RecyclerView.Adapter<RecycleAdapter.Holder>() {
     inner class Holder(val binding: ListFragmentRowBinding):RecyclerView.ViewHolder(binding.root)  {
@@ -19,7 +21,7 @@ class RecycleAdapter :RecyclerView.Adapter<RecycleAdapter.Holder>() {
     private val differCallback=object: DiffUtil.ItemCallback<DB_Entity>(){
         override fun areItemsTheSame(oldItem: DB_Entity, newItem: DB_Entity): Boolean {
 
-            return  oldItem.id==newItem.id
+            return  oldItem.city==newItem.city
         }
 
         override fun areContentsTheSame(oldItem: DB_Entity, newItem: DB_Entity): Boolean {
@@ -29,7 +31,7 @@ class RecycleAdapter :RecyclerView.Adapter<RecycleAdapter.Holder>() {
 
     }
     val differ= AsyncListDiffer(this,differCallback)
-
+    var pos=0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
 
         val binding=ListFragmentRowBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -44,6 +46,8 @@ class RecycleAdapter :RecyclerView.Adapter<RecycleAdapter.Holder>() {
             info.text=list.currDay.info
             holder.itemView.setOnClickListener {
                     onItemClickListener?.let {
+                        pos=position
+                        Timber.d(position.toString())
                         it(list)
                     }
             }
