@@ -11,6 +11,7 @@ interface weatherApi {
     suspend fun GetWeatherdata(
         @Query("key") key:String=API_KEY,
         @Query("q") q:String,
-        @Query("days") days:String="7"
+        @Query("days") days:Int=3,
+        @Query("lang") lang:String="tr"
     ):weather
 }

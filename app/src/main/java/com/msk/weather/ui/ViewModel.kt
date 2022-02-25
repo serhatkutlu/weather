@@ -1,12 +1,10 @@
 package com.msk.weather.ui
 import androidx.lifecycle.*
 import androidx.lifecycle.ViewModel
-import com.msk.weather.Repository
+import com.msk.weather.Repository.Repository
 import com.msk.weather.Util.Resource
 import com.msk.weather.responce.LocalData.DB_Entity
-import com.msk.weather.responce.data.weather
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -14,7 +12,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class ViewModel  @Inject constructor( val repository:Repository):ViewModel() {
+class ViewModel  @Inject constructor( val repository: Repository):ViewModel() {
 
 
     private val _weatherResponce =MutableLiveData<DB_Entity>()
@@ -45,14 +43,10 @@ class ViewModel  @Inject constructor( val repository:Repository):ViewModel() {
                     when (it){
                     is Resource.Success->{
                         it.data?.let {data->
-                            Timber.d(allweatherResponce.value!!.size.toString())
                             _allweatherResponce.postValue(listOf())
                             _allweatherResponce.postValue(listOf(it.data))
 
                         }
-
-
-
                     }
                     is Resource.Error-> Timber.d(it.message)
                     is Resource.Loading->Timber.d("ww")

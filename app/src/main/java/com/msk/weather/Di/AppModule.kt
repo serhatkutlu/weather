@@ -5,7 +5,7 @@ import androidx.room.Room
 import com.google.gson.Gson
 import com.msk.weather.DataBase.WeatherDatabase
 import com.msk.weather.DataBase.dao
-import com.msk.weather.Repository
+import com.msk.weather.Repository.Repository
 import com.msk.weather.Util.Constants.BASE_URL
 import com.msk.weather.Converters.Converter
 import com.msk.weather.Converters.gsonParser
@@ -32,7 +32,7 @@ object AppModule {
     }
     @Singleton
     @Provides
-    fun Providerepository(api:weatherApi,dao: dao)=Repository(api,dao)
+    fun Providerepository(api:weatherApi,dao: dao)= Repository(api,dao)
 
     @Singleton
     @Provides

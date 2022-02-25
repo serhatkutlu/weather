@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.msk.weather.Adapter.ViewPagerAdapter
 import com.msk.weather.R
+import com.msk.weather.Util.DateConverter
 import com.msk.weather.databinding.FragmentPrimaryBinding
 import timber.log.Timber
 
@@ -50,7 +51,6 @@ class primaryFragment : Fragment(R.layout.fragment_primary) {
 
         binding.floatingActionButton.setOnClickListener {
             val action=primaryFragmentDirections.actionPrimaryFragmentToListFragment()
-
             findNavController().navigate(action)
 
         }

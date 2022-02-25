@@ -1,4 +1,4 @@
-package com.msk.weather
+package com.msk.weather.Repository
 
 import com.msk.weather.DataBase.dao
 import com.msk.weather.Util.Resource
@@ -32,9 +32,19 @@ class Repository (val api:weatherApi,val dao:dao) {
             emit(Resource.Loading())
 
             try {
-                val AllCitys=dao.getAllCity()
+                var AllCitysdao=dao.getAllCity()
 
-                emit(Resource.Success(AllCitys))
+                try {
+                    AllCitysdao.map {
+                        val responce=api.GetWeatherdata(q=it.city).toEntity()
+                        dao.addCity(responce)
+                }
+                    AllCitysdao=dao.getAllCity()
+                    emit(Resource.Success(AllCitysdao))
+                }catch (e:Exception){
+                    emit(Resource.Success(AllCitysdao))
+                }
+                emit(Resource.Success(AllCitysdao))
             }catch (e:Exception){
 
                emit(Resource.Error("database is empty"))

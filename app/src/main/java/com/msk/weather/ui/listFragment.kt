@@ -36,10 +36,11 @@ import kotlin.time.days
 class listFragment : Fragment(R.layout.fragment_list) {
 
     private lateinit var binding: FragmentListBinding
-     private lateinit var viewModel:ViewModel
-     private lateinit var RecycleAdapter: RecycleAdapter
+    private lateinit var viewModel:ViewModel
+    private lateinit var RecycleAdapter: RecycleAdapter
     private var job:Job?=null
-     private var isSearching=false
+    private var isSearching=false
+    private var lastlistSize=0
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,16 +53,25 @@ class listFragment : Fragment(R.layout.fragment_list) {
 
 
         RecycleAdapter.SetOnItemClickListener {
-            if (isSearching) viewModel.saveCityToDatabse(it)
-            val pos=RecycleAdapter.pos
+            var pos=0
+            if (isSearching){
+                viewModel.saveCityToDatabse(it)
+                Timber.d(lastlistSize.toString())
+                pos=lastlistSize
+            }
+            else {
+                pos=RecycleAdapter.pos
+            }
             val action=listFragmentDirections.actionListFragmentToPrimaryFragment(pos)
             findNavController().navigate(action)
         }
 
         viewModel.getAllWeatherInfo()
         viewModel.allweatherResponce.observe(viewLifecycleOwner) {
-
             RecycleAdapter.differ.submitList(it)
+            if (it.size>1){
+                lastlistSize=it.size
+            }
         }
 
 

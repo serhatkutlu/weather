@@ -42,7 +42,7 @@ class RecycleAdapter :RecyclerView.Adapter<RecycleAdapter.Holder>() {
         val list=differ.currentList.get(position)
         holder.binding.apply {
             CityName.text=list.city
-            temperature.text=list.currDay.temp_c.toString()
+            temperature.text=list.currDay.temp_c.toString()+"°"
             info.text=list.currDay.info
             holder.itemView.setOnClickListener {
                     onItemClickListener?.let {
