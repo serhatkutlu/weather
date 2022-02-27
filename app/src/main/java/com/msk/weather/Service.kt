@@ -69,7 +69,7 @@ class Service:LifecycleService() {
                  getData(city)
 
                    Timber.d("44")
-                   handler.postDelayed(runnable,3600000)
+                  handler.postDelayed(runnable,3600000)
 
                }
 
@@ -90,7 +90,7 @@ class Service:LifecycleService() {
             .setContentTitle("${responce?.city?.uppercase()}")
             .setLargeIcon(icon)
             .setSmallIcon(R.drawable.ic_outline_air_24)
-            .setContentText("${data.temp_c}°      ${data.info.uppercase()}")
+            .setContentText("${data.temp_c}°    ${data.info.uppercase()}")
             .setContentIntent(pendingIntent)
             .build()
         startForeground(1,notification)
