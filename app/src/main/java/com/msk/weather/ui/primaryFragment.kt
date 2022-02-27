@@ -4,17 +4,16 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.msk.weather.Adapter.ViewPagerAdapter
 import com.msk.weather.R
-import com.msk.weather.Util.DateConverter
-import com.msk.weather.databinding.FragmentPrimaryBinding
-import timber.log.Timber
+import com.msk.weather.Service
 
+import com.msk.weather.databinding.FragmentPrimaryBinding
 
 class primaryFragment : Fragment(R.layout.fragment_primary) {
 
@@ -32,20 +31,22 @@ class primaryFragment : Fragment(R.layout.fragment_primary) {
         viewModel=(activity as MainActivity).viewModel
         viewModel.getAllWeatherInfo()
 
+        setViewPagerAdapter()
+        viewPagerListener()
+        //this function opens the selected city and update differ list
         viewModel.allweatherResponce.observe(viewLifecycleOwner){
             it?.let {data->
-                viewPagerAdapter= ViewPagerAdapter(data)
-                binding.viewPager2.adapter=viewPagerAdapter
-                binding.viewPager2.orientation=ViewPager2.ORIENTATION_HORIZONTAL
-                binding.circleIndicator3.setViewPager(binding.viewPager2)
+                viewPagerAdapter.differ.submitList(data)
                 currPage=arguments?.getInt("page")!!
-
                 runnable= Runnable {
                     binding.viewPager2.setCurrentItem(currPage,true)
                 }
                 mHandler.postDelayed(runnable,50)
+
+
             }
         }
+
 
 
 
@@ -56,6 +57,30 @@ class primaryFragment : Fragment(R.layout.fragment_primary) {
         }
 
 
+    }
+
+    private fun setViewPagerAdapter() {
+        viewPagerAdapter= ViewPagerAdapter()
+        binding.viewPager2.adapter=viewPagerAdapter
+        binding.viewPager2.orientation=ViewPager2.ORIENTATION_HORIZONTAL
+        binding.circleIndicator3.setViewPager(binding.viewPager2)
+
+    }
+
+    //this function  gets the name of the selected city
+    private fun viewPagerListener() {
+        binding.viewPager2.registerOnPageChangeCallback(object :ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                viewModel.allweatherResponce.value?.let {
+                    val city= it.get(binding.viewPager2.currentItem)
+
+                       Service.city.postValue(city.city)
+                    }}
+
+
+
+        })
     }
 
 

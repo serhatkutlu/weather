@@ -48,7 +48,7 @@
         android:id="@+id/main_info"
         android:gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="15dp"
         android:text="sunny"
         android:textSize="25sp"
@@ -75,7 +75,7 @@
         android:layout_marginTop="40dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
-        android:paddingHorizontal="15dp"
+        android:paddingHorizontal="10dp"
         android:paddingVertical="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -87,7 +87,9 @@
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@drawable/back"
+            android:paddingVertical="10dp">
 
             <TextView
                 android:id="@+id/day_name1"
@@ -128,7 +130,9 @@
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@drawable/back"
+            android:paddingVertical="10dp">
 
             <TextView
                 android:id="@+id/day_name2"
@@ -169,7 +173,9 @@
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@drawable/back"
+            android:paddingVertical="10dp">
 
             <TextView
                 android:id="@+id/day_name3"

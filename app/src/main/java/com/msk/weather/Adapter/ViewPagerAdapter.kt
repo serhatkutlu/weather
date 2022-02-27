@@ -2,6 +2,8 @@ package com.msk.weather.Adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.msk.weather.Util.DateConverter
 import com.msk.weather.Util.loadUrl
@@ -11,18 +13,31 @@ import com.msk.weather.responce.LocalData.LocalDay
 import timber.log.Timber
 import java.util.*
 
-class ViewPagerAdapter(var list: List<DB_Entity>):RecyclerView.Adapter<ViewPagerAdapter.Page2ViewHolder>(){
+class ViewPagerAdapter():RecyclerView.Adapter<ViewPagerAdapter.Page2ViewHolder>(){
     inner class Page2ViewHolder(val binding:PrimaryFragmentRowBinding):RecyclerView.ViewHolder(binding.root) {
 
     }
 
+    private val differCallback=object: DiffUtil.ItemCallback<DB_Entity>(){
+        override fun areItemsTheSame(oldItem: DB_Entity, newItem: DB_Entity): Boolean {
+
+            return  oldItem.city==newItem.city
+        }
+
+        override fun areContentsTheSame(oldItem: DB_Entity, newItem: DB_Entity): Boolean {
+
+            return oldItem==newItem
+        }
+
+    }
+    val differ= AsyncListDiffer(this,differCallback)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Page2ViewHolder {
         val binding= PrimaryFragmentRowBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return Page2ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: Page2ViewHolder, position: Int) {
-        val pos=list.get(position)
+        val pos=differ.currentList.get(position)
         holder.binding.apply {
             CityName.text=pos.city
             mainDayName.text=DateConverter.ConvertDate(pos.days[0].date)
@@ -48,5 +63,5 @@ class ViewPagerAdapter(var list: List<DB_Entity>):RecyclerView.Adapter<ViewPager
     }}
 
     override fun getItemCount(): Int {
-        return list.size    }
+        return differ.currentList.size    }
 }

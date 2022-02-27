@@ -15,8 +15,7 @@ import javax.inject.Inject
 class ViewModel  @Inject constructor( val repository: Repository):ViewModel() {
 
 
-    private val _weatherResponce =MutableLiveData<DB_Entity>()
-    val weatherResponce:LiveData<DB_Entity> =_weatherResponce
+
 
     private var _allweatherResponce = MutableLiveData<List<DB_Entity>>()
     val allweatherResponce:LiveData<List<DB_Entity>> = _allweatherResponce
@@ -70,5 +69,4 @@ class ViewModel  @Inject constructor( val repository: Repository):ViewModel() {
             }.launchIn(this)
         }
     }
-
 }
