@@ -14,6 +14,7 @@ import com.msk.weather.R
 import com.msk.weather.Service
 
 import com.msk.weather.databinding.FragmentPrimaryBinding
+import com.msk.weather.responce.LocalData.DB_Entity
 
 class primaryFragment : Fragment(R.layout.fragment_primary) {
 
@@ -31,12 +32,13 @@ class primaryFragment : Fragment(R.layout.fragment_primary) {
         viewModel=(activity as MainActivity).viewModel
         viewModel.getAllWeatherInfo()
 
-        setViewPagerAdapter()
-        viewPagerListener()
+
+
         //this function opens the selected city and update differ list
         viewModel.allweatherResponce.observe(viewLifecycleOwner){
             it?.let {data->
-                viewPagerAdapter.differ.submitList(data)
+                setViewPagerAdapter(it)
+                viewPagerListener()
                 currPage=arguments?.getInt("page")!!
                 runnable= Runnable {
                     binding.viewPager2.setCurrentItem(currPage,true)
@@ -59,8 +61,8 @@ class primaryFragment : Fragment(R.layout.fragment_primary) {
 
     }
 
-    private fun setViewPagerAdapter() {
-        viewPagerAdapter= ViewPagerAdapter()
+    private fun setViewPagerAdapter(list: List<DB_Entity>) {
+        viewPagerAdapter= ViewPagerAdapter(list)
         binding.viewPager2.adapter=viewPagerAdapter
         binding.viewPager2.orientation=ViewPager2.ORIENTATION_HORIZONTAL
         binding.circleIndicator3.setViewPager(binding.viewPager2)
