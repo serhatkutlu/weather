@@ -9,6 +9,7 @@ import com.msk.weather.Repository.Repository
 import com.msk.weather.Util.Constants.BASE_URL
 import com.msk.weather.Converters.Converter
 import com.msk.weather.Converters.gsonParser
+import com.msk.weather.Repository.IRepository
 import com.msk.weather.responce.api.weatherApi
 import dagger.Module
 import dagger.Provides
@@ -32,7 +33,7 @@ object AppModule {
     }
     @Singleton
     @Provides
-    fun Providerepository(api:weatherApi,dao: dao)= Repository(api,dao)
+    fun Providerepository(api:weatherApi,dao: dao)= Repository(api,dao) as IRepository
 
     @Singleton
     @Provides

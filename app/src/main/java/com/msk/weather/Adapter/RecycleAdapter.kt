@@ -47,7 +47,6 @@ class RecycleAdapter :RecyclerView.Adapter<RecycleAdapter.Holder>() {
             holder.itemView.setOnClickListener {
                     onItemClickListener?.let {
                         pos=position
-                        Timber.d(position.toString())
                         it(list)
                     }
             }

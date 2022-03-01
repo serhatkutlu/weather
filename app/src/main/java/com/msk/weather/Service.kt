@@ -8,6 +8,7 @@ import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.MutableLiveData
 import com.bumptech.glide.Glide
+import com.msk.weather.Repository.IRepository
 import com.msk.weather.Repository.Repository
 import com.msk.weather.Util.Constants
 import com.msk.weather.Util.Resource
@@ -34,7 +35,8 @@ class Service:LifecycleService() {
     }
 
     @Inject
-    lateinit var Repository: Repository
+    lateinit var Repository: IRepository
+
     lateinit var runnable: Runnable
     private val handler= Handler()
     private  var  serviceJob=Job()
@@ -67,8 +69,6 @@ class Service:LifecycleService() {
             runnable = Runnable {
                job= CoroutineScope(Job()).launch{
                  getData(city)
-
-                   Timber.d("44")
                   handler.postDelayed(runnable,3600000)
 
                }

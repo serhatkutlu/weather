@@ -1,7 +1,7 @@
 package com.msk.weather.ui
 import androidx.lifecycle.*
 import androidx.lifecycle.ViewModel
-import com.msk.weather.Repository.Repository
+import com.msk.weather.Repository.IRepository
 import com.msk.weather.Util.Resource
 import com.msk.weather.responce.LocalData.DB_Entity
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,7 +12,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class ViewModel  @Inject constructor( val repository: Repository):ViewModel() {
+class ViewModel  @Inject constructor( val repository: IRepository):ViewModel() {
 
 
 
