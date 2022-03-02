@@ -21,4 +21,6 @@ interface dao {
     @Delete
     suspend fun delete(City:DB_Entity)
 
+    @Update
+    suspend fun update(City:DB_Entity)
 }

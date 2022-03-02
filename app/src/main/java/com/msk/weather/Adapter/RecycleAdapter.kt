@@ -32,6 +32,9 @@ class RecycleAdapter :RecyclerView.Adapter<RecycleAdapter.Holder>() {
     }
     val differ= AsyncListDiffer(this,differCallback)
     var pos=0
+    var isSerarching=false
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
 
         val binding=ListFragmentRowBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -44,12 +47,24 @@ class RecycleAdapter :RecyclerView.Adapter<RecycleAdapter.Holder>() {
             CityName.text=list.city
             temperature.text=list.currDay.temp_c.toString()+"°"
             info.text=list.currDay.info
+            if (isSerarching){
+                deleteButton.visibility=View.INVISIBLE
+            }
+            else{
+                deleteButton.visibility=View.VISIBLE
+            }
+            holder.binding.deleteButton.setOnClickListener{view->
+                deleteItemClickListener?.let {
+                    it(list)
+                }
+            }
             holder.itemView.setOnClickListener {
                     onItemClickListener?.let {
                         pos=position
                         it(list)
                     }
             }
+
         }
 
     }
@@ -58,16 +73,21 @@ class RecycleAdapter :RecyclerView.Adapter<RecycleAdapter.Holder>() {
         return differ.currentList.size
     }
 
-    fun deleteItem(pos:Int):DB_Entity{
-        return differ.currentList.get(pos)
 
-    }
 
     private var onItemClickListener:((DB_Entity)->Unit)?=null
 
 
     fun SetOnItemClickListener(listener:(DB_Entity)->Unit){
        onItemClickListener=listener
+    }
+
+
+    private var deleteItemClickListener:((DB_Entity)->Unit)?=null
+
+    fun SetDeleteButtonListener(listener:(DB_Entity)->Unit){
+        deleteItemClickListener=listener
+
     }
 
 

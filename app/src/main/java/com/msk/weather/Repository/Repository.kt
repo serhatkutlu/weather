@@ -38,7 +38,7 @@ class Repository (val api:weatherApi,val dao:dao): IRepository {
                     AllCitysdao.map {
                         val responce=api.GetWeatherdata(q=it.city).toEntity()
                         responce.city=it.city
-                        dao.addCity(responce)
+                        dao.update(responce)
                 }
                     AllCitysdao=dao.getAllCity()
                     emit(Resource.Success(AllCitysdao))

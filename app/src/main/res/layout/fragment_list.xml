@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.listFragment"
     android:orientation="vertical"
-    android:background="#197CE1">
+    android:background="#7578B8">
 
 
     <EditText

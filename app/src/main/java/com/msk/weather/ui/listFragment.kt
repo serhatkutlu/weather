@@ -1,5 +1,6 @@
 package com.msk.weather.ui
 
+import android.content.ClipData
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +10,8 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -18,8 +21,11 @@ import com.msk.weather.Adapter.RecycleAdapter
 import com.msk.weather.Adapter.SwipeToDelete
 
 import com.msk.weather.R
+import com.msk.weather.Util.makeToast
+import com.msk.weather.Util.setGetPrefs
 import com.msk.weather.databinding.ActivityMainBinding
 import com.msk.weather.databinding.FragmentListBinding
+import com.msk.weather.responce.LocalData.DB_Entity
 import com.msk.weather.responce.LocalData.LocalDay
 import kotlinx.coroutines.*
 import okhttp3.internal.notify
@@ -51,7 +57,7 @@ class listFragment : Fragment(R.layout.fragment_list) {
         viewModel=(activity as MainActivity ).viewModel
 
         SetupRecyclerAdapter()
-
+        SetupDeleteListener()
         SetupRecyclerClickListener()
 
 
@@ -62,6 +68,8 @@ class listFragment : Fragment(R.layout.fragment_list) {
 
         //update the Recycler view
         viewModel.allweatherResponce.observe(viewLifecycleOwner) {
+
+
             RecycleAdapter.differ.submitList(it)
 
             if (it.size>1){
@@ -71,13 +79,18 @@ class listFragment : Fragment(R.layout.fragment_list) {
         }
         binding.editTextTextPersonName.addTextChangedListener {
             if (it.toString().isNotEmpty())
-            {isSearching=true
+            {
+                isSearching=true
+                RecycleAdapter.isSerarching=true
                 searching(it.toString())
+
             }
             else{
                 isSearching=false
+                RecycleAdapter.isSerarching=false
                 job?.let { it.cancel() }
                 viewModel.getAllWeatherInfo()
+
             }
         }
     }
@@ -101,8 +114,14 @@ class listFragment : Fragment(R.layout.fragment_list) {
         binding.ListRecycler.apply {
             this.adapter=RecycleAdapter
             layoutManager=LinearLayoutManager(activity)
-            itemTouchFun()
 
+
+        }
+    }
+
+    fun SetupDeleteListener(){
+        RecycleAdapter.SetDeleteButtonListener {
+            DeleteCity(it)
         }
     }
 
@@ -119,29 +138,21 @@ class listFragment : Fragment(R.layout.fragment_list) {
                 pos=RecycleAdapter.pos
             }
 
-
-            val action=listFragmentDirections.actionListFragmentToPrimaryFragment(pos)
+            requireContext().setGetPrefs(pos)
+            val action=listFragmentDirections.actionListFragmentToPrimaryFragment()
             findNavController().navigate(action)
         }
     }
 
-    private fun itemTouchFun(){
-        val item=object:SwipeToDelete(){
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                DeleteCity(viewHolder.adapterPosition)
-            }
-        }
-        ItemTouchHelper(item).attachToRecyclerView(binding.ListRecycler)
 
-    }
-    private fun DeleteCity(adapterPos:Int){
-        val entity=RecycleAdapter.deleteItem(adapterPos)
+
+    private fun DeleteCity(entity:DB_Entity){
+
         viewModel.deleteCityInDatabase(entity)
         viewModel.getAllWeatherInfo()
         RecycleAdapter.notifyDataSetChanged()
 
-        SetupRecyclerAdapter()
-        SetupRecyclerClickListener()
+
 
     }
 
