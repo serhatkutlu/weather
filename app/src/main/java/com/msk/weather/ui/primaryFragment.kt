@@ -29,6 +29,7 @@ class primaryFragment : Fragment(R.layout.fragment_primary) {
 
     private var CurrPage=0
     private var checkViewPager=0
+    lateinit var runnable: Runnable
 
 
 
@@ -39,13 +40,9 @@ class primaryFragment : Fragment(R.layout.fragment_primary) {
         navController= NavController(requireContext())
         viewModel=(activity as MainActivity).viewModel
 
-        //if the app is installed for the first time it makes the first call
-        if(requireContext().CheckFirsTimePrefs()) {
-            viewModel.GetWeatherInfo("london")
-            viewModel.allweatherResponce.value?.get(0)?.let {
-                viewModel.saveCityToDatabse(it)
-            }
-        }
+
+        CheckFirsTime()
+
         viewModel.getAllWeatherInfo()
         CurrPage=requireContext().setGetPrefs()
 
@@ -72,6 +69,26 @@ class primaryFragment : Fragment(R.layout.fragment_primary) {
 
         }
 
+
+    }
+
+    //if the app is installed for the first time it makes the first call
+    private fun CheckFirsTime() {
+        if(requireContext().CheckFirsTimePrefs()) {
+
+            viewModel.GetWeatherInfo("london")
+            Timber.d("1")
+            runnable= Runnable {
+                Timber.d("2")
+                viewModel.allweatherResponce.value?.get(0).also {
+                    it?.let {
+                        Timber.d("1")
+                        viewModel.saveCityToDatabse(it)
+                    }
+                }
+            }
+            Handler().postDelayed(runnable,1000)
+        }
 
     }
 

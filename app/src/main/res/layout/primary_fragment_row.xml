@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00000000">
+    android:background="#7578B8">
 
 
     <TextView
@@ -48,10 +48,10 @@
         android:id="@+id/main_info"
         android:gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
         android:layout_marginTop="15dp"
         android:text="sunny"
-        android:textSize="25sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -72,11 +72,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="35dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
-        android:paddingHorizontal="10dp"
+        android:paddingHorizontal="15dp"
         android:paddingVertical="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,19 +85,22 @@
 
 
         <LinearLayout
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="210dp"
+            android:layout_weight="1"
+            android:background="@drawable/back"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:background="@drawable/back"
             android:paddingVertical="10dp">
 
             <TextView
                 android:id="@+id/day_name1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Monday"
-                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:paddingHorizontal="15dp"
+                android:text="wednesday"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -110,11 +114,10 @@
                 android:id="@+id/day_info1"
                 android:layout_width="90dp"
                 android:layout_height="70dp"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
+
                 android:autoSizeTextType="uniform"
-                android:text="sunny"
-                 />
+                android:gravity="center"
+                android:text="sunny" />
 
             <ImageView
                 android:id="@+id/day_image1"
@@ -127,19 +130,22 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="210dp"
+            android:layout_weight="1"
+            android:background="@drawable/back"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:background="@drawable/back"
             android:paddingVertical="10dp">
 
             <TextView
                 android:id="@+id/day_name2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:paddingHorizontal="15dp"
                 android:text="Mon"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -153,11 +159,9 @@
                 android:id="@+id/day_info2"
                 android:layout_width="90dp"
                 android:layout_height="70dp"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
                 android:autoSizeTextType="uniform"
-                android:text="moderate or heawy snow showers "
-                 />
+                android:gravity="center"
+                android:text="moderate or heawy snow showers " />
 
             <ImageView
                 android:id="@+id/day_image2"
@@ -170,19 +174,22 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="210dp"
+            android:layout_weight="1"
+            android:background="@drawable/back"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:background="@drawable/back"
             android:paddingVertical="10dp">
 
             <TextView
                 android:id="@+id/day_name3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:paddingHorizontal="15dp"
                 android:text="Mon"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -196,10 +203,9 @@
                 android:id="@+id/day_info3"
                 android:layout_width="90dp"
                 android:layout_height="70dp"
-                android:layout_marginTop="20dp"
                 android:autoSizeTextType="uniform"
-                android:text="sunny"
                 android:gravity="center"
+                android:text="sunny"
                 android:textSize="20sp" />
 
             <ImageView
