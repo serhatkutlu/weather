@@ -77,14 +77,12 @@ class primaryFragment : Fragment(R.layout.fragment_primary) {
         if(requireContext().CheckFirsTimePrefs()) {
 
             viewModel.GetWeatherInfo("london")
-            Timber.d("1")
             runnable= Runnable {
-                Timber.d("2")
-                viewModel.allweatherResponce.value?.get(0).also {
+                viewModel.allweatherResponce.value.also {
                     it?.let {
-                        Timber.d("1")
-                        viewModel.saveCityToDatabse(it)
-                    }
+                        if (it.isNotEmpty()){
+                        viewModel.saveCityToDatabse(it.get(0))
+                    }}
                 }
             }
             Handler().postDelayed(runnable,1000)
