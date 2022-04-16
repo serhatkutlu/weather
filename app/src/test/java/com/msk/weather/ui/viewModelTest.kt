@@ -1,8 +1,7 @@
-package com.msk.weather.FakeRepository.ui
+package com.msk.weather.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.msk.weather.FakeRepository.FakeRepository
-import com.msk.weather.ui.ViewModel
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -11,7 +10,7 @@ import com.msk.weather.MainCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
-class Fakeviewmodel {
+class viewModelTest {
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
